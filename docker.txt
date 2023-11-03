@@ -1,0 +1,64 @@
+docker images -> show list image exist in docker
+docker search 'name pakake' -> search any pakages on https://hub.docker.com/ .for a Example ubuntu, nodejs, mysql, mongodb, php, npm ...
+docker pull 'name pakage':'version attach' -> download a store from hub docker store
+docker image rm 'name or id image' -> delete a image in docker when there no it's containers
+docker image rm 'name or id image' f -> -> delete a image in docker include it's containers 
+docker run -it 'name image or ID image' -> run a image avaiable in list images to create a container and run container on terminal tab
+docker run -d 'name image or ID image' -> run a image avaiable in list images to create a container and run container in out of terminal tab
+docker run -it --rm 'name image or ID image' -> run a image avaiable in list images to create a container but run this container only one time  
+docker ps -> show list containers running in process
+docker ps -a -> show all of list containers time start running  and time stop
+docker start 'name container or ID container' -> start again a special container
+docker attach 'name container or ID container' -> run a container and attach that container on terminral tab
+ctrl + p + q -> escape out to terminal tab but still remain running a container in process
+docker stop 'name container or ID container' -> stop a special container
+docker rm 'name container or ID container' -> delete a special container
+docker rm -f 'name container or ID container' -> delete a special container with container running in process
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+docker exec -it 'name or ID container' bash -> like docker attach
+docker exec 'ID or name container' 'command' -> run command when in the local but make a sure that container was started and was running on terminal tab before
+docker commit 'ID or Name container' 'name image custom':'tag image custom' -> build image docker from container avaiable before do this, make a sure that special container was stoped
+docker save --output 'name image custom'.tar 'ID or name image' -> download image from docker to folder local with format .tar
+docker load -i 'dir into file .tar' -> upload image from local folder to docker
+docker tag 'id or name image'  'name image custom':'name tag custom' -> change name image 
+/////////////////////////////////////////////////////////////////////////////////////////
+docker run -it --name 'name container custom' --mount type=bind,source='dir folder from local',target='dir target in container' 'name or ID image'
+docker run -it -v 'dir from folder local':'dir from folder container' 'id or name image' -> load file and folder local to folder container of image docker
+docker run -it -v 'dir from folder local':'dir from folder container' --name 'name container custom' 'id or name image' -> load file and folder local to folder container with custom name
+docker run -it --name 'custom for name container'  --volumes-from 'name or id container other' 'name or ID image' -> extend and use general resources of containers together running, include resource in local
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+docker volume create 'name volume custom' -> create volume
+docker volume ls -> get list volumes
+docker volume inspect 'name volume' -> inspect a volume
+docker volume rm 'name volume' -> delete a volume
+////////////////////////////////////////////////////////////////////////////////////////
+docker network ls -> show all network current in docker
+docker network inspect 'Name or Id network' -> inspect a special network
+docker run -it --name 'name container custom' -p 'port local defaut 8888':'port container custom for a example 80' 'ID or name image' -> visit port from host to port container use http://localhost:8888, make a sure opend port in container 
+docker network create --driver 'name or ID network avaiable in local' 'name network custom' -> create a network
+docker network rm 'name or ID network' -> delete a network in list networks
+docker run -it --name 'name container custom' --network 'name or ID network' 'name or ID image' -> create a container and connet to a custom network created onto
+docker network connect 'ID or name network' 'ID or name container' -> connect from a container to a network other
+
+///////////////////////////////////////////////////////////////////////////////
+docker -e 'name constant'='value env' -> set a value for env variable
+
+
+///////////////////////////////////////////////////////////////////////
+docker image history 'name or ID image' -> show history image
+docker logs -f 'name or ID container'  -> show logs container
+docker cp 'dir local' 'name or ID container':'dir container' -> copy folder from local to container
+
+//////////////////////////////////////////////////////////////////////////////
+FROM 'name image'                 ##      docker run -it centos:lastest
+RUN apt update                    ##      apt update
+ADD .'dir local' 'dir container'  ##      docker cp 'dir local' 'name container':'dir container'
+EXPOSE 80                         ##      docker ........ -p '...':'...'
+ENTRYPOINT [""]
+
+docker build -t 'image name custom':'tag name custom' -f Dockerfile . 
+
