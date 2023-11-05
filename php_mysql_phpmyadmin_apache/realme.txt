@@ -1,0 +1,42 @@
+install mysql 8.0
+
+docker run -it -d  \
+--name mysql-docker \
+-v php-volume:/var/lib/mysql \
+--network php-network \
+-e MYSQL_ROOT_PASSWORD=secret \
+-e MYSQL_DATABASE=mydb \
+mysql:8.0
+
+
+//////////////////////////
+
+install apache + php 8.0
+
+
+docker run -it -d \
+--name php-apache-docker \
+-v .:/var/www/html \
+-v ./000-default.conf:/etc/apache2/sites-enabled/000-default.conf \
+-p 8080:80 \
+--network php-network \
+--link  mysql-docker:mysql \
+php:8.0-apache
+
+let run this docker-php-ext-install mysqli pdo pdo_mysql
+and docker cp ->  . /var/www/html/
+
+///////////////////////////
+
+install interface phpmyadmin depend_on mysql
+
+docker run -it -d \
+--name phpmyadmin-docker \
+-p 8081:80 \
+-e PMA_HOST=mysql-docker \
+-e MYSQL_ROOT_PASSWORD=secret \
+--link mysql-docker:mysql \
+--network php-network \
+phpmyadmin/phpmyadmin
+
+chmod 755 etc/phpmyadmin/config.inc.php in this container
